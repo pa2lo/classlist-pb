@@ -1,0 +1,366 @@
+[
+  {
+    "id": "_pb_users_auth_",
+    "name": "users",
+    "type": "auth",
+    "system": false,
+    "schema": [
+      {
+        "id": "users_name",
+        "name": "name",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "users_avatar",
+        "name": "avatar",
+        "type": "file",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": [
+            "image/jpeg",
+            "image/png",
+            "image/svg+xml",
+            "image/gif",
+            "image/webp"
+          ],
+          "thumbs": null,
+          "protected": false
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id != \"\"",
+    "viewRule": "@request.auth.id != \"\"",
+    "createRule": "@request.auth.id != \"\"",
+    "updateRule": "@request.auth.id != \"\"",
+    "deleteRule": "@request.auth.id != \"\"",
+    "options": {
+      "allowEmailAuth": true,
+      "allowOAuth2Auth": false,
+      "allowUsernameAuth": false,
+      "exceptEmailDomains": null,
+      "manageRule": "@request.auth.id != \"\"",
+      "minPasswordLength": 8,
+      "onlyEmailDomains": null,
+      "requireEmail": true
+    }
+  },
+  {
+    "id": "0qro962khc2jugp",
+    "name": "text_files",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "brwl7pcp",
+        "name": "file",
+        "type": "file",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": [],
+          "thumbs": [],
+          "protected": false
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id != \"\"",
+    "viewRule": "@request.auth.id != \"\"",
+    "createRule": "@request.auth.id != \"\"",
+    "updateRule": "@request.auth.id != \"\"",
+    "deleteRule": "@request.auth.id != \"\"",
+    "options": {}
+  },
+  {
+    "id": "agk8sk0nau8dpmx",
+    "name": "posts",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "dmpzmmsg",
+        "name": "name",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "czgbwbzy",
+        "name": "slug",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "my2ztc0o",
+        "name": "description",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "qf6gmdvf",
+        "name": "text",
+        "type": "editor",
+        "system": false,
+        "required": false,
+        "options": {}
+      },
+      {
+        "id": "yseuxsue",
+        "name": "theme",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "zy7jqoqn",
+        "name": "type",
+        "type": "select",
+        "system": false,
+        "required": true,
+        "options": {
+          "maxSelect": 4,
+          "values": [
+            "block",
+            "category",
+            "page",
+            "other"
+          ]
+        }
+      },
+      {
+        "id": "5lwyosyd",
+        "name": "block",
+        "type": "select",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 9,
+          "values": [
+            "directory",
+            "menu",
+            "highlights",
+            "gallery",
+            "socialnetworks",
+            "testimonials",
+            "text",
+            "cta",
+            "banner"
+          ]
+        }
+      },
+      {
+        "id": "kgj9jkme",
+        "name": "visibility",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_lFiShu4` ON `posts` (`slug`)"
+    ],
+    "listRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
+    "viewRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
+    "createRule": "@request.auth.id != \"\"",
+    "updateRule": "@request.auth.id != \"\"",
+    "deleteRule": "@request.auth.id != \"\"",
+    "options": {}
+  },
+  {
+    "id": "tp0akfet72n4fhf",
+    "name": "classes",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "fyii5rwv",
+        "name": "name",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "0cqr92yy",
+        "name": "description",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "rtta6akw",
+        "name": "theme",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "bnkn0a8d",
+        "name": "text",
+        "type": "editor",
+        "system": false,
+        "required": false,
+        "options": {}
+      },
+      {
+        "id": "qrsycxe1",
+        "name": "type",
+        "type": "select",
+        "system": false,
+        "required": true,
+        "options": {
+          "maxSelect": 4,
+          "values": [
+            "block",
+            "category",
+            "page",
+            "other"
+          ]
+        }
+      },
+      {
+        "id": "18lgdc8l",
+        "name": "block",
+        "type": "select",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 9,
+          "values": [
+            "directory",
+            "menu",
+            "highlights",
+            "gallery",
+            "socialnetworks",
+            "testimonials",
+            "text",
+            "cta",
+            "banner"
+          ]
+        }
+      },
+      {
+        "id": "ddgxzelk",
+        "name": "image",
+        "type": "file",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": [
+            "image/jpeg",
+            "image/png",
+            "image/svg+xml",
+            "image/gif",
+            "image/webp"
+          ],
+          "thumbs": [],
+          "protected": false
+        }
+      },
+      {
+        "id": "8qoozr8x",
+        "name": "visibility",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
+    "viewRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
+    "createRule": "@request.auth.id != \"\"",
+    "updateRule": "@request.auth.id != \"\"",
+    "deleteRule": "@request.auth.id != \"\"",
+    "options": {}
+  },
+  {
+    "id": "d6bz5cxy03pexh0",
+    "name": "posts_collection",
+    "type": "view",
+    "system": false,
+    "schema": [
+      {
+        "id": "zwlzxoz2",
+        "name": "slug",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.query.filter ~ \"slug='%'\"",
+    "viewRule": null,
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {
+      "query": "SELECT id, slug FROM posts WHERE visibility = 'private'"
+    }
+  }
+]

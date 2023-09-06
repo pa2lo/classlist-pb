@@ -1,0 +1,50 @@
+/* animations */
+.modal-enter-active, .modal-leave-active {
+	transition: opacity 0.25s ease-in;
+	overflow: hidden;
+}
+:is(.modal-enter-active, .modal-leave-active) .modal-card {
+	transition: scale .25s ease-in, opacity .25s ease-in;
+}
+.multi-select-enter-active, .multi-select-leave-active {
+	transition: opacity 0.1s ease-in;
+}
+.checked-options-move, .checked-options-enter-active, .checked-options-leave-active,
+.toast-move, .toast-enter-active, .toast-leave-active {
+	transition: all .15s ease-in;
+}
+.filtered-options-enter-active, .filtered-options-leave-active {
+	transition: all .1s ease-in;
+}
+
+.modal-enter-from, .modal-leave-to,
+.filtered-options-enter-from, .filtered-options-leave-to,
+.multi-select-enter-from, .multi-select-leave-to,
+.checked-options-enter-from, .checked-options-leave-to,
+.toast-enter-from, .toast-leave-to {
+	opacity: 0;
+}
+.checked-options-enter-from, .checked-options-leave-to,
+.toast-enter-from {
+	scale: 0;
+}
+.toast-leave-to {
+	translate: 0 -100%;
+}
+
+.modal-enter-from .modal-card {
+	scale: 1.2;
+}
+.modal-leave-to .modal-card {
+	scale: .75;
+}
+
+.checked-options-leave-active,
+.toast-leave-active {
+	position: absolute;
+}
+
+.filtered-options-enter-from, .filtered-options-leave-to {
+	grid-template-rows: 0fr;
+	margin-top: 0;
+}

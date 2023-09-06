@@ -1,0 +1,55 @@
+.card {
+	--card-width: 42rem;
+
+	width: 100%;
+	max-width: calc(var(--card-width) + (var(--card-padding) * 2));
+	background: var(--input-background);
+	border-radius: 0.375em;
+	margin: auto;
+	position: relative;
+	container-type: inline-size;
+}
+
+.card-header, .card-footer {
+	padding: calc(var(--card-padding) - 0.375em) var(--card-padding);
+}
+.card-body {
+	padding: var(--card-padding);
+}
+.card-footer {
+	display: flex;
+	gap: 0.5em 1em;
+	justify-content: flex-end;
+	flex-wrap: wrap-reverse;
+}
+@container (max-width: 28rem) {
+	.card-footer {
+		gap: 0.5em 0.75em;
+	}
+	.card-footer .button {
+		flex: 1 1 auto;
+		min-width: fit-content;
+	}
+}
+
+:is(.card-body, .card-footer):not(:first-child) {
+	border-top: 1px solid var(--border);
+}
+
+.card-narrow {
+	--card-width: 20rem;
+}
+.card-narrower {
+	--card-width: 30rem;
+}
+.card-wider {
+	--card-width: 50rem;
+}
+.card-image-preview {
+	--card-width: 60rem;
+	width: fit-content;
+	container-type: normal;
+}
+.card-full {
+	--card-width: 100%;
+}

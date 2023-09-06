@@ -1,0 +1,78 @@
+.modal-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 10;
+	background: color-mix(in srgb-linear, var(--heading) 15%, #0003 100%);
+	-webkit-backdrop-filter: blur(.25em);
+	backdrop-filter: blur(.25em);
+	padding: calc(var(--seection-padding-vertical)) var(--seection-padding-horizontal);
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	overscroll-behavior: none;
+	will-change: opacity;
+	scrollbar-gutter: stable;
+}
+
+/* .modal-card {
+	will-change: opacity, scale;
+} */
+
+.modal-bttn {
+	position: absolute;
+	right: calc(var(--card-padding) - 0.4375em);
+	top: calc(var(--card-padding) - 0.4375em);
+}
+
+.header-note, .modal-header-note {
+	font-size: 0.875rem;
+	opacity: 0.75;
+	line-height: 1.0625rem;
+}
+.header-note {
+	margin-top: 0.375rem;
+}
+.modal-header-note {
+	margin-top: 0.1875rem;
+}
+
+.modal-dialog-icon {
+    font-size: 6em;
+    line-height: 0;
+}
+.modal-dialog-title {
+	margin-top: 0.75rem;
+}
+.modal-dialog-text {
+	margin-top: 0.5rem;
+}
+.modal-dialog-buttons {
+	gap: 0.5em;
+	justify-content: center;
+}
+.modal-dialog-button {
+	flex: 1 1 auto;
+	max-width: 8em;
+}
+
+.card-image-preview .modal-bttn {
+	background-color: var(--button-background-hover);
+}
+.modal-image-preview-img {
+	border-radius: inherit;
+}
+.modal-image-preview-info {
+	position: absolute;
+	inset: auto var(--line-gap) var(--line-gap) var(--line-gap);
+	background: #fffd;
+	border-radius: 2rem;
+	padding: 0.125em 0.125em 0.125em 0.875em;
+	gap: 0.25em;
+	right: var(--line-gap);
+	max-width: fit-content;
+}
+.modal-image-preview-title {
+	flex: 1;
+	font-size: 0.875em;
+	word-break: break-all;
+}
