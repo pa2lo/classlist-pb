@@ -1,13 +1,14 @@
 # ClassList
 
-Test project for PocketBase and Vue Router. In "dashboard" routes client subscribes to DB for real time updates.
+Test project for PocketBase and Vue Router. In "dashboard" routes client subscribes to DB for real time updates.<br>
 Added custom MultiSelect component + renderComponent function to mount VUE components inside HTML content from TinyMCE.
 
 ## Demo
 [Demo app](https://classlist.pa2lo.net)
-Login to dashboard:
-URL - https://classlist.pa2lo.net/login
-username - demo@demo.demo
+
+Login to dashboard:<br>
+URL - https://classlist.pa2lo.net/login<br>
+username - demo@demo.demo<br>
 password - demo1234
 
 ## Project Setup
