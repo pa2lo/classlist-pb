@@ -1,61 +1,5 @@
 [
   {
-    "id": "_pb_users_auth_",
-    "name": "users",
-    "type": "auth",
-    "system": false,
-    "schema": [
-      {
-        "id": "users_name",
-        "name": "name",
-        "type": "text",
-        "system": false,
-        "required": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "users_avatar",
-        "name": "avatar",
-        "type": "file",
-        "system": false,
-        "required": false,
-        "options": {
-          "maxSelect": 1,
-          "maxSize": 5242880,
-          "mimeTypes": [
-            "image/jpeg",
-            "image/png",
-            "image/svg+xml",
-            "image/gif",
-            "image/webp"
-          ],
-          "thumbs": null,
-          "protected": false
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": "@request.auth.id != \"\"",
-    "viewRule": "@request.auth.id != \"\"",
-    "createRule": "@request.auth.id != \"\"",
-    "updateRule": "@request.auth.id != \"\"",
-    "deleteRule": "@request.auth.id != \"\"",
-    "options": {
-      "allowEmailAuth": true,
-      "allowOAuth2Auth": false,
-      "allowUsernameAuth": false,
-      "exceptEmailDomains": null,
-      "manageRule": "@request.auth.id != \"\"",
-      "minPasswordLength": 8,
-      "onlyEmailDomains": null,
-      "requireEmail": true
-    }
-  },
-  {
     "id": "0qro962khc2jugp",
     "name": "text_files",
     "type": "base",
@@ -83,6 +27,35 @@
     "updateRule": "@request.auth.id != \"\"",
     "deleteRule": "@request.auth.id != \"\"",
     "options": {}
+  },
+  {
+    "id": "d6bz5cxy03pexh0",
+    "name": "posts_collection",
+    "type": "view",
+    "system": false,
+    "schema": [
+      {
+        "id": "4gic0jiy",
+        "name": "slug",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.query.filter ~ \"slug='%'\"",
+    "viewRule": null,
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {
+      "query": "SELECT id, slug FROM posts WHERE visibility = 'private'"
+    }
   },
   {
     "id": "agk8sk0nau8dpmx",
@@ -147,6 +120,21 @@
         }
       },
       {
+        "id": "b4tdaut0",
+        "name": "template",
+        "type": "select",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 3,
+          "values": [
+            "s1",
+            "paris",
+            "barcelona"
+          ]
+        }
+      },
+      {
         "id": "zy7jqoqn",
         "name": "type",
         "type": "select",
@@ -207,6 +195,62 @@
     "options": {}
   },
   {
+    "id": "_pb_users_auth_",
+    "name": "users",
+    "type": "auth",
+    "system": false,
+    "schema": [
+      {
+        "id": "users_name",
+        "name": "name",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "users_avatar",
+        "name": "avatar",
+        "type": "file",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": [
+            "image/jpeg",
+            "image/png",
+            "image/svg+xml",
+            "image/gif",
+            "image/webp"
+          ],
+          "thumbs": null,
+          "protected": false
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id != \"\"",
+    "viewRule": "@request.auth.id != \"\"",
+    "createRule": "@request.auth.id != \"\" && email != \"demo@demo.demo\"",
+    "updateRule": "@request.auth.id != \"\" && email != \"demo@demo.demo\"",
+    "deleteRule": "@request.auth.id != \"\" && email != \"demo@demo.demo\"",
+    "options": {
+      "allowEmailAuth": true,
+      "allowOAuth2Auth": false,
+      "allowUsernameAuth": false,
+      "exceptEmailDomains": null,
+      "manageRule": "@request.auth.id != \"\" && email != \"demo@demo.demo\"",
+      "minPasswordLength": 8,
+      "onlyEmailDomains": null,
+      "requireEmail": true
+    }
+  },
+  {
     "id": "tp0akfet72n4fhf",
     "name": "classes",
     "type": "base",
@@ -241,11 +285,26 @@
         "name": "theme",
         "type": "text",
         "system": false,
-        "required": true,
+        "required": false,
         "options": {
           "min": null,
           "max": null,
           "pattern": ""
+        }
+      },
+      {
+        "id": "fxahu0gj",
+        "name": "template",
+        "type": "select",
+        "system": false,
+        "required": true,
+        "options": {
+          "maxSelect": 3,
+          "values": [
+            "s1",
+            "paris",
+            "barcelona"
+          ]
         }
       },
       {
@@ -333,34 +392,5 @@
     "updateRule": "@request.auth.id != \"\"",
     "deleteRule": "@request.auth.id != \"\"",
     "options": {}
-  },
-  {
-    "id": "d6bz5cxy03pexh0",
-    "name": "posts_collection",
-    "type": "view",
-    "system": false,
-    "schema": [
-      {
-        "id": "zwlzxoz2",
-        "name": "slug",
-        "type": "text",
-        "system": false,
-        "required": true,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": "@request.query.filter ~ \"slug='%'\"",
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {
-      "query": "SELECT id, slug FROM posts WHERE visibility = 'private'"
-    }
   }
 ]

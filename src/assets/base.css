@@ -259,6 +259,9 @@ a {
 .bedge-paris {
 	color: hsl(315, 50%, 55%);
 }
+.bedge-barcelona {
+	color: hsl(199, 55%, 45%);
+}
 
 .color-success, .bedge-success, .icon-success-animated {
 	color: hsl(132, 61%, 41%);

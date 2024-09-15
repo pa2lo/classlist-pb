@@ -61,6 +61,7 @@
 }
 .classes-item-disabled .classes-item-text {
 	pointer-events: none;
+	opacity: 0.75;
 }
 
 .classes-item-text {

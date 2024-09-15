@@ -58,7 +58,7 @@ function setFilter(filter) {
 		search: '',
 		block: filter.block || '',
 		type: filter.type || '',
-		theme: filter.theme || '',
+		template: filter.template || '',
 		visibility: props.isLoggedIn ? filter.visibility || '' : null
 	}
 	if (modalOpen.value) modalOpen.value = false
@@ -79,7 +79,7 @@ const postsCollapsed = ref(false)
 <template>
 	<h2 v-if="loading" class="header-loading"></h2>
 	<div v-else>
-		<ListFilter full v-model:search="searchState.search" v-model:theme="searchState.theme" v-model:type="searchState.type" v-model:block="searchState.block" v-model:visibility="searchState.visibility" />
+		<ListFilter full v-model:search="searchState.search" v-model:template="searchState.template" v-model:type="searchState.type" v-model:block="searchState.block" v-model:visibility="searchState.visibility" />
 		<div class="line-bigger">
 			<h4 v-if="!filteredClasses.length && !filteredPosts.length">No results</h4>
 			<div v-else>
@@ -98,8 +98,8 @@ const postsCollapsed = ref(false)
 							@click.prevent="() => showClass(c)"
 							:private="c?.visibility == 'private'"
 						>
-							<span v-if="c.theme" class="bedge" :class="[`bedge-${c.theme}`]">
-								{{ themesMap[c.theme] }}
+							<span v-for="t in c.template" class="bedge" :class="[`bedge-${t}`]">
+								{{ themesMap[t] }}
 							</span>
 						</ListItem>
 					</div>
@@ -117,9 +117,10 @@ const postsCollapsed = ref(false)
 							:description="c.description"
 							@click.prevent="() => $router.push({name: 'post', params: { slug: c.slug }})"
 							:private="c?.visibility == 'private'"
+							:externalLink="`/post/${c?.slug}`"
 						>
-							<span v-if="c.theme" class="bedge" :class="[`bedge-${c.theme}`]">
-								{{ themesMap[c.theme] }}
+							<span v-for="t in c.template" class="bedge" :class="[`bedge-${t}`]">
+								{{ themesMap[t] }}
 							</span>
 						</ListItem>
 					</div>

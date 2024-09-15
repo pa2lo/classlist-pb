@@ -6,7 +6,7 @@ export const postsStore = ref(null)
 export const searchState = ref({
 	search: '',
 	type: '',
-	theme: '',
+	template: '',
 	block: '',
 	visibility: null
 })

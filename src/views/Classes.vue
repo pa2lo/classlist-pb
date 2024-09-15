@@ -24,7 +24,7 @@ const classes = classesStore
 const loading = ref(classes.value ? false : true)
 const filter = ref({
 	search: '',
-	theme: '',
+	template: '',
 	type: '',
 	visibility: ''
 })
@@ -94,7 +94,7 @@ function openNewForm() {
 		data: Object.assign({}, {
 			name: '',
 			description: '',
-			theme: '',
+			template: [],
 			type: [],
 			block: [],
 			text: '',
@@ -129,7 +129,9 @@ function submitClassForm() {
 	form.append('description', classForm.value.data.description)
 	form.append('text', classForm.value.data.text)
 	form.append('visibility', classForm.value.data.visibility)
-	form.append('theme', classForm.value.data.theme)
+	classForm.value.data.template.forEach(t => {
+		form.append('template', t)
+	})
 	classForm.value.data.type.forEach(t => {
 		form.append('type', t)
 	})
@@ -226,12 +228,48 @@ function getImage(image) {
 function getImagePreview(image) {
 	return getImageURL(classForm.value.data?.collectionName, classForm.value.data?.id, image, '100x100')
 }
+
+let migrating = ref(false)
+async function migrate() {
+	let classesToUpdate = classes.value.filter(c => c.theme && !c.template.includes(c.theme))
+	if (!classesToUpdate.length || migrating.value) return
+
+	migrating.value = true
+
+	let updated = 0
+
+	for (const record of classesToUpdate) {
+		deletingId.value = record.id
+
+		try {
+			await pb.collection('classes').update(record.id, {
+				name: record.name,
+				template: [record.theme],
+				type: record.type
+			})
+
+			updated++
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	if (updated == classesToUpdate.length) toast.success('Migration finished')
+	else toast.warning('Migration finished with errors')
+
+	migrating.value = false
+	deletingId.value = null
+}
 </script>
 
 <template>
 	<DashboardPage header="Class list" :loading="loading">
-		<div v-if="classes?.length" class="classes-outer">
-			<ListFilter full v-model:search="filter.search" v-model:theme="filter.theme" v-model:type="filter.type" v-model:visibility="filter.visibility">
+		<div v-if="classes.some(c => c.theme && !c.template.includes(c.theme))" class="line-alert line-warning flex ai-c">
+			<span><strong>Migration required</strong> - fill template column from theme column in all records</span>
+			<Button class="ml-a" size="lower" :loading="migrating" @click.prevent="migrate">Migrate</Button>
+		</div>
+		<div v-if="classes?.length" class="classes-outer line-bigger">
+			<ListFilter full v-model:search="filter.search" v-model:template="filter.template" v-model:type="filter.type" v-model:visibility="filter.visibility">
 				<Button class="ml-a" @click.prevent="openNewForm">Add new class</Button>
 			</ListFilter>
 			<div class="line-bigger">
@@ -247,8 +285,8 @@ function getImagePreview(image) {
 						@click.prevent="() => showEditForm(c)"
 						@delete="() => deleteClass(c)"
 					>
-						<span v-if="c.theme" class="bedge" :class="[`bedge-${c.theme}`]">
-							{{ themesMap[c.theme] }}
+						<span v-for="t in c.template" class="bedge" :class="[`bedge-${t}`]">
+							{{ themesMap[t] }}
 						</span>
 					</ListItem>
 					<p class="ta-r"><strong>{{ filteredClasses.length }}</strong> records</p>
@@ -262,7 +300,7 @@ function getImagePreview(image) {
 		<Modal v-model:open="modalOpen" as="form" :closeable="classForm.processing || deletingId ? false : true" :header="classForm?.type == 'add' ? 'Add new class' : `Edit class ${classForm.originalName}`" :headerNote="classForm?.type == 'edit' ? `Last update - ${new Date(classForm.updated).toLocaleString()}` : ''" @submit.prevent="submitClassForm">
 			<div class="inputs-grid">
 				<TextInput label="Name" placeholder="newClass" v-model="classForm.data.name" :error="classForm.errors.name" required />
-				<MultiSelect required label="Theme" :options="themeOptions" v-model="classForm.data.theme" :error="classForm.errors.theme" />
+				<MultiSelect required label="Template" :options="themeOptions" v-model="classForm.data.template" :error="classForm.errors.template" />
 				<MultiSelect required label="Type" :options="typeOptions" v-model="classForm.data.type" :error="classForm.errors.type" />
 				<MultiSelect searchable label="Block" :options="blockOptions" v-model="classForm.data.block" :disabled="!classForm.data.type.includes('block')" :error="classForm.errors.block" />
 				<FileInput :maxSize='5242880' label="Image" accept="image/*" :fileName="classForm.data.image" :previewImage="getImagePreview(classForm.data.image)" :fileUrl="getImage(classForm.data.image)" @setFile="setImage" :error="classForm.errors.image" />

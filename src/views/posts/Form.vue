@@ -32,7 +32,7 @@ const postForm = ref({
 		description: props.post?.description ?? '',
 		slug: props.post?.slug ?? '',
 		text: props.post?.text ?? '',
-		theme: props.post?.theme ?? '',
+		template: props.post?.template ?? [],
 		type: props.post?.type ?? [],
 		block: props.post?.block ?? [],
 		visibility: props.post?.visibility ?? 'public'
@@ -123,7 +123,7 @@ onMounted(() => {
 					description: e.record?.description ?? '',
 					slug: e.record?.slug ?? '',
 					text: e.record?.text ?? '',
-					theme: e.record?.theme ?? '',
+					template: e.record?.template ?? [],
 					type: e.record?.type ?? [],
 					block: e.record?.block ?? [],
 					visibility: e.record?.visibility ?? 'public'
@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
 				<TextInput autofocus label="Name" placeholder="Your post" v-model="postForm.data.name" :error="postForm.errors.name" required @blur="setSlug" />
 				<TextInput label="Slug" placeholder="post-url" v-model="postForm.data.slug" :error="postForm.errors.slug" required @blur="onSlugBlur" />
 				<RadioButtonGroup label="Visibility" :options="visibilityOptions" v-model="postForm.data.visibility" :error="postForm.errors.visibility" required />
-				<MultiSelect label="Theme" :options="themeOptions" v-model="postForm.data.theme" :error="postForm.errors.theme" required />
+				<MultiSelect label="Template" :options="themeOptions" v-model="postForm.data.template" :error="postForm.errors.template" required />
 				<MultiSelect label="Type" :options="typeOptions" v-model="postForm.data.type" :error="postForm.errors.type" required />
 				<MultiSelect searchable label="Block" :options="blockOptions" v-model="postForm.data.block" :disabled="!postForm.data.type.includes('block')" :error="postForm.errors.block" />
 				<TextInput full label="Description" placeholder="sets view of..." v-model="postForm.data.description" :error="postForm.errors.description" required />

@@ -8,7 +8,7 @@ import MultiSelect from './MultiSelect.vue'
 
 const props = defineProps({
 	search: String,
-	theme: String,
+	template: String,
 	type: String,
 	block: String,
 	visibility: String,
@@ -16,10 +16,10 @@ const props = defineProps({
 })
 
 const vm = getCurrentInstance()
-const emit = defineEmits(['update:search', 'update:theme', 'update:type', 'update:block', 'update:visibility'])
+const emit = defineEmits(['update:search', 'update:template', 'update:type', 'update:block', 'update:visibility'])
 
 const proxySearch = useProxyModel(toRef(() => props.search), vm, 'update:search')
-const proxyTheme = useProxyModel(toRef(() => props.theme), vm, 'update:theme')
+const proxyTemplate = useProxyModel(toRef(() => props.template), vm, 'update:template')
 const proxyType = useProxyModel(toRef(() => props.type), vm, 'update:type', setBlockFilter)
 const proxyBlock = useProxyModel(toRef(() => props.block), vm, 'update:block')
 const proxyVisibility = useProxyModel(toRef(() => props.visibility), vm, 'update:visibility')
@@ -49,7 +49,7 @@ function setBlockFilter(val) {
 	<header class="classes-header flex" :class="{'classes-header-full': full}">
 		<div class="classes-header-filter classes-header-home-filter flex" :class="{'classes-header-full-filter': full}">
 			<TextInput v-if="search != null" placeholder="Search text ..." icon="search" v-model="proxySearch" clearable />
-			<MultiSelect v-if="theme != null" placeholder="All themes" allowEmpty :options="themeOptions" v-model="proxyTheme" />
+			<MultiSelect v-if="template != null" placeholder="All templates" allowEmpty :options="themeOptions" v-model="proxyTemplate" />
 			<MultiSelect v-if="type != null" placeholder="All types" allowEmpty :options="typeOptions" v-model="proxyType" />
 			<MultiSelect v-if="block != null" placeholder="All blocks" allowEmpty :options="blockOptions" v-model="proxyBlock" :disabled="!['', 'block'].includes(type)" />
 			<MultiSelect v-if="visibility != null" placeholder="All" allowEmpty :options="visibilityOptions" v-model="proxyVisibility" />
@@ -57,15 +57,15 @@ function setBlockFilter(val) {
 		<slot></slot>
 	</header>
 	<Transition name="filtered-options">
-		<p v-if="search || type || theme || block || visibility" class="filtered-options">
+		<p v-if="search || type || template || block || visibility" class="filtered-options">
 			<span class="filtered-options-home">
 				<TransitionGroup name="checked-options">
 					<span v-if="search" class="multi-select-checked-option" @click.prevent="$emit('update:search', '')">
 						<span class="multi-select-checked-option-title">search - {{ search }}</span>
 						<span class="multi-select-checked-option-x">✕</span>
 					</span>
-					<span v-if="theme" class="multi-select-checked-option" @click.prevent="$emit('update:theme', '')">
-						<span class="multi-select-checked-option-title">theme - {{ themesMap[theme] }}</span>
+					<span v-if="template" class="multi-select-checked-option" @click.prevent="$emit('update:template', '')">
+						<span class="multi-select-checked-option-title">template - {{ themesMap[template] }}</span>
 						<span class="multi-select-checked-option-x">✕</span>
 					</span>
 					<span v-if="type" class="multi-select-checked-option" @click.prevent="$emit('update:type', '')">

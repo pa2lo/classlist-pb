@@ -15,7 +15,7 @@ export function filterHelper(data, filter) {
 	return data.filter(item => {
 		let res = true
 		if (filter.search) res = item.name?.toLowerCase().includes(filter.search.toLowerCase()) || item.description?.toLowerCase().includes(filter.search.toLowerCase()) || item.text?.toLowerCase().includes(filter.search.toLowerCase())
-		if (res && filter.theme) res = item.theme == filter.theme
+		if (res && filter.template) res = item.template.includes(filter.template)
 		if (res && filter.type) res = item.type.includes(filter.type)
 		if (res && filter.block) res = item.block.includes(filter.block)
 		if (res && filter.visibility) res = item.visibility == filter.visibility
@@ -53,6 +53,9 @@ export const themeOptions = [
 	}, {
 		title: 'Paris',
 		value: 'paris'
+	}, {
+		title: 'Barcelona',
+		value: 'barcelona'
 	}
 ]
 
@@ -100,6 +103,12 @@ export const blockOptions = [
 	}, {
 		title: 'Dynamic banner',
 		value: 'banner'
+	}, {
+		title: 'Instagram',
+		value: 'instagram'
+	}, {
+		title: 'Form',
+		value: 'form'
 	}
 ]
 

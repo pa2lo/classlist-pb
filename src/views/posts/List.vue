@@ -18,7 +18,7 @@ const posts = postsStore
 const loading = ref(posts.value ? false : true)
 const filter = ref({
 	search: '',
-	theme: '',
+	template: '',
 	type: '',
 	visibility: ''
 })
@@ -86,12 +86,49 @@ function deletePost(item) {
 		}
 	})
 }
+
+let migrating = ref(false)
+async function migrate() {
+	let classesToUpdate = posts.value.filter(c => c.theme && !c.template.includes(c.theme))
+	if (!classesToUpdate.length || migrating.value) return
+
+	migrating.value = true
+
+	let updated = 0
+
+	for (const record of classesToUpdate) {
+		deletingId.value = record.id
+
+		try {
+			await pb.collection('posts').update(record.id, {
+				name: record.name,
+				slug: record.slug,
+				template: [record.theme],
+				type: record.type
+			})
+
+			updated++
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	if (updated == classesToUpdate.length) toast.success('Migration finished')
+	else toast.warning('Migration finished with errors')
+
+	migrating.value = false
+	deletingId.value = null
+}
 </script>
 
 <template>
 	<DashboardPage header="Posts" :loading="loading">
-		<div v-if="posts?.length" class="classes-outer">
-			<ListFilter full v-model:search="filter.search" v-model:theme="filter.theme" v-model:type="filter.type" v-model:visibility="filter.visibility">
+		<div v-if="posts.some(c => c.theme && !c.template.includes(c.theme))" class="line-alert line-warning flex ai-c">
+			<span><strong>Migration required</strong> - fill template column from theme column in all records</span>
+			<Button class="ml-a" size="lower" :loading="migrating" @click.prevent="migrate">Migrate</Button>
+		</div>
+		<div v-if="posts?.length" class="classes-outer line-bigger">
+			<ListFilter full v-model:search="filter.search" v-model:template="filter.template" v-model:type="filter.type" v-model:visibility="filter.visibility">
 				<Button href="/dashboard/posts/create" class="ml-a">Add new post</Button>
 			</ListFilter>
 			<div class="line-bigger">
@@ -108,8 +145,8 @@ function deletePost(item) {
 						:private="c?.visibility == 'private'"
 						:externalLink="`/post/${c?.slug}`"
 					>
-						<span v-if="c.theme" class="bedge" :class="[`bedge-${c.theme}`]">
-							{{ themesMap[c.theme] }}
+						<span v-for="t in c.template" class="bedge" :class="[`bedge-${t}`]">
+							{{ themesMap[t] }}
 						</span>
 					</ListItem>
 					<p class="ta-r"><strong>{{ filteredPosts.length }}</strong> records</p>

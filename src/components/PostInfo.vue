@@ -20,10 +20,10 @@ function bedgeClick(type, value) {
 <template>
 	<div class="post-info line-bigger">
 		<p class="post-info-line flex ai-c">
-			<span class="post-info-line-title">Theme</span>
+			<span class="post-info-line-title">Template</span>
 			<span class="filtered-options-home">
-				<span class="multi-select-checked-option" @click.prevent="() => bedgeClick('theme', post.theme)">
-					<span class="multi-select-checked-option-title">{{ themesMap[post.theme] }}</span>
+				<span v-for="t in post.template" class="multi-select-checked-option" @click.prevent="() => bedgeClick('template', t)">
+					<span class="multi-select-checked-option-title">{{ themesMap[t] }}</span>
 				</span>
 			</span>
 		</p>
