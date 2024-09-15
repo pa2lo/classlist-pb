@@ -58,143 +58,6 @@
     }
   },
   {
-    "id": "agk8sk0nau8dpmx",
-    "name": "posts",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "id": "dmpzmmsg",
-        "name": "name",
-        "type": "text",
-        "system": false,
-        "required": true,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "czgbwbzy",
-        "name": "slug",
-        "type": "text",
-        "system": false,
-        "required": true,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "my2ztc0o",
-        "name": "description",
-        "type": "text",
-        "system": false,
-        "required": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "qf6gmdvf",
-        "name": "text",
-        "type": "editor",
-        "system": false,
-        "required": false,
-        "options": {}
-      },
-      {
-        "id": "yseuxsue",
-        "name": "theme",
-        "type": "text",
-        "system": false,
-        "required": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "b4tdaut0",
-        "name": "template",
-        "type": "select",
-        "system": false,
-        "required": false,
-        "options": {
-          "maxSelect": 3,
-          "values": [
-            "s1",
-            "paris",
-            "barcelona"
-          ]
-        }
-      },
-      {
-        "id": "zy7jqoqn",
-        "name": "type",
-        "type": "select",
-        "system": false,
-        "required": true,
-        "options": {
-          "maxSelect": 4,
-          "values": [
-            "block",
-            "category",
-            "page",
-            "other"
-          ]
-        }
-      },
-      {
-        "id": "5lwyosyd",
-        "name": "block",
-        "type": "select",
-        "system": false,
-        "required": false,
-        "options": {
-          "maxSelect": 9,
-          "values": [
-            "directory",
-            "menu",
-            "highlights",
-            "gallery",
-            "socialnetworks",
-            "testimonials",
-            "text",
-            "cta",
-            "banner"
-          ]
-        }
-      },
-      {
-        "id": "kgj9jkme",
-        "name": "visibility",
-        "type": "text",
-        "system": false,
-        "required": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      }
-    ],
-    "indexes": [
-      "CREATE UNIQUE INDEX `idx_lFiShu4` ON `posts` (`slug`)"
-    ],
-    "listRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
-    "viewRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
-    "createRule": "@request.auth.id != \"\"",
-    "updateRule": "@request.auth.id != \"\"",
-    "deleteRule": "@request.auth.id != \"\"",
-    "options": {}
-  },
-  {
     "id": "_pb_users_auth_",
     "name": "users",
     "type": "auth",
@@ -348,7 +211,9 @@
             "testimonials",
             "text",
             "cta",
-            "banner"
+            "banner",
+            "instagram",
+            "form"
           ]
         }
       },
@@ -386,6 +251,145 @@
       }
     ],
     "indexes": [],
+    "listRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
+    "viewRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
+    "createRule": "@request.auth.id != \"\"",
+    "updateRule": "@request.auth.id != \"\"",
+    "deleteRule": "@request.auth.id != \"\"",
+    "options": {}
+  },
+  {
+    "id": "agk8sk0nau8dpmx",
+    "name": "posts",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "dmpzmmsg",
+        "name": "name",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "czgbwbzy",
+        "name": "slug",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "my2ztc0o",
+        "name": "description",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "qf6gmdvf",
+        "name": "text",
+        "type": "editor",
+        "system": false,
+        "required": false,
+        "options": {}
+      },
+      {
+        "id": "yseuxsue",
+        "name": "theme",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "b4tdaut0",
+        "name": "template",
+        "type": "select",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 3,
+          "values": [
+            "s1",
+            "paris",
+            "barcelona"
+          ]
+        }
+      },
+      {
+        "id": "zy7jqoqn",
+        "name": "type",
+        "type": "select",
+        "system": false,
+        "required": true,
+        "options": {
+          "maxSelect": 4,
+          "values": [
+            "block",
+            "category",
+            "page",
+            "other"
+          ]
+        }
+      },
+      {
+        "id": "5lwyosyd",
+        "name": "block",
+        "type": "select",
+        "system": false,
+        "required": false,
+        "options": {
+          "maxSelect": 9,
+          "values": [
+            "directory",
+            "menu",
+            "highlights",
+            "gallery",
+            "socialnetworks",
+            "testimonials",
+            "text",
+            "cta",
+            "banner",
+            "instagram",
+            "form"
+          ]
+        }
+      },
+      {
+        "id": "kgj9jkme",
+        "name": "visibility",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_lFiShu4` ON `posts` (`slug`)"
+    ],
     "listRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
     "viewRule": "visibility = \"\" || visibility = \"public\" || (visibility = \"private\" && @request.auth.id != \"\")",
     "createRule": "@request.auth.id != \"\"",
